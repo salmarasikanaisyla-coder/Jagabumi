@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aksi Nyataku - Bumi Lestari</title>
+    <style>
+        :root {
+            --primary-green: #115e59;
+            --secondary-green: #0d9488;
+            --accent-green: #14b8a6;
+            --light-green: #ccfbf1;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --card-bg: #ffffff;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Pembungkus Utama Aplikasi */
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--card-bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        /* Komponen Halaman */
+        .screen {
+            display: none;
+            width: 100%;
+            padding: 30px 20px;
+            flex-direction: column;
+            animation: fadeIn 0.3s ease-in-out;
+            box-sizing: border-box;
+            flex: 1;
+            justify-content: space-between;
+        }
+
+        /* Memastikan Halaman Aktif Muncul */
+        .screen.active { 
+            display: flex; 
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tema Halaman Utama */
+        .hero-bg {
+            background: linear-gradient(180deg, #e6fffa 0%, #ffffff 100%);
+            text-align: center;
+            padding-top: 40px;
+        }
+
+        /* Gambar Tema Lingkungan */
+        .banner-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin: 20px 0;
+            box-shadow: 0 6px 15px rgba(13, 148, 136, 0.15);
+        }
+
+        /* Navigasi Atas */
+        .header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--primary-green);
+            font-weight: 700;
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--light-green);
+            padding-bottom: 12px;
+        }
+
+        .back-btn { cursor: pointer; font-size: 1.8rem; line-height: 1; padding-right: 10px; }
+
+        /* Desain Tipografi */
+        .title-large {
+            color: var(--primary-green);
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .title-medium {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .desc-text { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+
+        /* Desain Tombol Utama */
+        .btn-main {
+            background: linear-gradient(135deg, var(--secondary-green) 0%, var(--primary-green) 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: auto;
+            box-shadow: 0 6px 12px rgba(13, 148, 136, 0.25);
+            transition: all 0.2s;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+        .btn-main:hover { transform: translateY(-1px); }
+
+        .btn-outline {
+            display: block;
+            background: white;
+            color: var(--text-dark);
+            border: 2px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            text-align: left;
+            width: 100%;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            box-sizing: border-box;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .btn-outline:hover { border-color: var(--secondary-green); background-color: var(--light-green); }
+
+        /* Elemen Kartu Data Dashboard */
+        .data-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--light-green);
+        }
+        .data-icon { font-size: 2rem; margin-right: 15px; }
+        .data-val { font-weight: 800; color: var(--primary-green); font-size: 1.3rem; }
+        .data-lbl { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* Area Google Form */
+        .form-area {
+            border: 2px dashed var(--secondary-green);
+            border-radius: 16px;
+            padding: 35px 20px;
+            text-align: center;
+            margin: 25px 0;
+            background: #f8fafc;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+
+    <div class="screen active hero-bg" id="page1">
+        <div>
+            <div style="font-size: 4rem; margin-bottom: 10px;">🍃</div>
+            <div class="title-large">Energi Baik</div>
+            <div style="color: var(--text-dark); font-size: 1.5rem; font-weight: 700;">untuk Bumi Lestari</div>
+            
+            <img class="banner-img" src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=600&q=80" alt="Lingkungan Hijau">
+            
+            <p class="desc-text" style="font-weight: 500; padding: 0 10px;">Aksi kecil hari ini, warisan besar untuk generasi nanti.</p>
+        </div>
+        <button class="btn-main" onclick="nextPage(2)">Mulai Aksi Sekarang 🚀</button>
+    </div>
+
+    <div class="screen" id="page2">
+        <div>
+            <div class="header-nav"><span class="back-btn" onclick="prevPage(1)">‹</span> <span>Fakta Edukasi</span></div>
+            <div class="title-medium">💡 Tahukah Kamu?</div>
+            <p class="desc-text" style="margin-bottom: 20px;">Tutup botol plastik yang kita buang sembarangan membutuhkan waktu hingga <b style="color:var(--secondary-green)">450 tahun</b> untuk bisa hancur dan terurai secara alami.</p>
+            <div style="background: #f8fafc; height: 160px; border-radius: 20px; display: flex; justify-content: center; align-items: center; font-size: 4rem; border: 1px dashed #cbd5e1;">🧴</div>
+        </div>
+        <button class="btn-main" onclick="nextPage(3)">Lanjut ➜</button>
+    </div>
+
+    <div class="screen" id="page3">
+        <div>
+            <div class="header-nav"><span class="back-btn" onclick="prevPage(2)">‹</span> <span>Dashboard Aksi</span></div>
+            <div class="title-medium">📊 Hasil Kontribusi</div>
+            
+            <div class="data-card">
+                <div class="data-icon">🗑️</div>
+                <div><div class="data-val">300 pcs</div><div class="data-lbl">Tutup botol terkumpul</div></div>
+            </div>
+            <div class="data-card">
+                <div class="data-icon">📉</div>
+                <div><div class="data-val">± 1,78 kg</div><div class="data-lbl">Limbah plastik berkurang</div></div>
+            </div>
+            <div class="data-card">
+                <div class="data-icon">🌲</div>
+                <div><div class="data-val">± 3,71 kg</div><div class="data-lbl">Emisi CO₂ dihemat</div></div>
+            </div>
+        </div>
+        <button class="btn-main" onclick="nextPage(4)">Lihat Misi Hari Ini ➜</button>
+    </div>
+
+    <div class="screen" id="page4">
+        <div>
+            <div class="header-nav"><span class="back-btn" onclick="prevPage(3)">‹</span> <span>Misi Lingkungan</span></div>
+            <div class="title-medium">🎯 Upload Bukti Aksi</div>
+            
+            <div style="background: var(--light-green); border: 2px dashed var(--secondary-green); border-radius: 16px; padding: 15px; text-align: center; margin-bottom: 20px;">
+                <h4 style="color:var(--primary-green); margin-bottom: 4px;">Tantangan Hari Ini:</h4>
+                <p class="desc-text" style="font-weight: 600;">Kumpulkan 5 buah tutup botol/sampah plastik!</p>
+            </div>
+
+            <div class="form-area">
+                <span style="font-size: 3.5rem; display: block; margin-bottom: 15px;">📝</span>
+                <a href="https://forms.gle/GNfG66eTH5fB536k8" target="_blank" class="btn-main" style="box-shadow: none;">Kirim Via Google Form ➜</a>
+            </div>
+        </div>
+        <button class="btn-main" onclick="nextPage(5)" style="margin-top: 15px;">Lanjut ke Quiz ➜</button>
+    </div>
+
+    <div class="screen" id="page5">
+        <div>
+            <div class="header-nav"><span class="back-btn" onclick="prevPage(4)">‹</span> <span>Asah Otak</span></div>
+            <div class="title-medium">🧩 Quiz Singkat</div>
+            <p class="desc-text" style="margin-bottom: 20px; font-weight: 500;">Manakah jenis sampah plastik berikut yang paling bernilai tinggi dan mudah didaur ulang?</p>
+            
+            <button class="btn-outline" onclick="checkAns(false, this)">A. Kantong kresek hitam</button>
+            <button class="btn-outline" onclick="checkAns(true, this)">B. Botol & Tutup Botol (PET/HDPE)</button>
+            <button class="btn-outline" onclick="checkAns(false, this)">C. Wadah Styrofoam makanan</button>
+            <button class="btn-outline" onclick="checkAns(false, this)">D. Bungkus kopi sachet</button>
+        </div>
+        <button class="btn-main" onclick="nextPage(6)">Lanjut ➜</button>
+    </div>
+
+    <div class="screen" id="page6">
+        <div>
+            <div class="header-nav"><span class="back-btn" onclick="prevPage(5)">‹</span> <span>Inspirasi Karya</span></div>
+            <div class="title-medium">✨ Galeri Daur Ulang</div>
+            
+            <img class="banner-img" src="galeri daur ulang.jpeg" alt="Gantungan Kunci Tutup Botol">
+            
+            <p class="desc-text" style="text-align: center; margin-top: 10px;">Melalui kreativitas, tutup botol plastik diolah kembali secara mandiri menjadi kerajinan gantungan kunci estetik bernilai guna tinggi.</p>
+        </div>
+        <button class="btn-main" onclick="nextPage(7)">Gabung Komunitas 🚀</button>
+    </div>
+
+    <div class="screen" id="page7">
+        <div>
+            <div class="header-nav"><span class="back-btn" onclick="prevPage(6)">‹</span> <span>Hubungi Kami</span></div>
+            <div class="title-medium">🤝 Mulai Langkahmu</div>
+            <p class="desc-text" style="margin-bottom: 25px;">Salurkan aksi nyatamu dan berkolaborasi bersama kami di kanal jejaring sosial resmi:</p>
+            
+            <a href="https://whatsapp.com/channel/0029VbCShoC7IUYT1HxQv00h" target="_blank" class="btn-outline" style="display: flex; align-items: center; gap: 12px;">📢 <span>Saluran WhatsApp Resmi</span></a>
+            
+            <a href="https://www.instagram.com/tutupplastik.co?igsh=MWwwYTYzd3gxeDA4" target="_blank" class="btn-outline" style="display: flex; align-items: center; gap: 12px;">📸 <span>Instagram: @tutupplastik.co</span></a>
+            
+            <a href="https://wa.me/6282362251706" target="_blank" class="btn-outline" style="display: flex; align-items: center; gap: 12px;">💬 <span>WhatsApp Admin: 082362251706</span></a>
+        </div>
+        <div style="text-align: center; font-size: 0.85rem; color: var(--text-muted); padding-top: 30px; margin-top: auto; font-weight: 600;">Powered by IT © 2026</div>
+    </div>
+
+</div>
+
+<script>
+    function nextPage(pageNum) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        const targetPage = document.getElementById('page' + pageNum);
+        if (targetPage) {
+            targetPage.classList.add('active');
+        }
+        window.scrollTo(0, 0);
+    }
+
+    function prevPage(pageNum) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        const targetPage = document.getElementById('page' + pageNum);
+        if (targetPage) {
+            targetPage.classList.add('active');
+        }
+        window.scrollTo(0, 0);
+    }
+
+    function checkAns(isCorrect, element) {
+        document.querySelectorAll('.btn-outline').forEach(btn => {
+            btn.style.borderColor = "#e2e8f0";
+            btn.style.backgroundColor = "white";
+            btn.style.color = "var(--text-dark)";
+        });
+
+        if(isCorrect) {
+            element.style.borderColor = "var(--secondary-green)";
+            element.style.backgroundColor = "var(--light-green)";
+            element.style.color = "var(--primary-green)";
+            alert("Jawaban Hebat! Botol dan Tutup Botol plastik tipe PET/HDPE bernilai tinggi dan sangat dicari industri daur ulang. 🎉");
+        } else {
+            element.style.borderColor = "#ef4444";
+            element.style.backgroundColor = "#fef2f2";
+            element.style.color = "#ef4444";
+            alert("Masih kurang pas, coba pilih opsi yang lain! 😉");
+        }
+    }
+</script>
+
+</body>
+</html>
